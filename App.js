@@ -7,8 +7,14 @@ import LoadingScreen from "./screens/LoadingScreen";
 import LoginScreen from "./screens/LoginScreen";
 import { firebaseConfig } from "./config";
 import firebase from "firebase";
+import { Provider } from "react-redux";
+import store from "./store";
 
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp({});
+} else {
+  firebase.app(); // if already initialized, use that one
+}
 
 export default function App() {
   const AppSwitchNavigator = createSwitchNavigator({
@@ -19,7 +25,11 @@ export default function App() {
 
   const AppNavigator = createAppContainer(AppSwitchNavigator);
 
-  return <AppNavigator />;
+  return (
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
+  );
 }
 
 const styles = StyleSheet.create({
