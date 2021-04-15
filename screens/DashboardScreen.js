@@ -1,14 +1,17 @@
 import React, { Component, useEffect } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, SafeAreaView, Text, View } from "react-native";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { onSignOut } from "../actions/users";
-import { FAB } from "react-native-paper";
-import { CustomAppbar } from "../components/CustomAppbar.js";
+import { Appbar, FAB } from "react-native-paper";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import Icons from "react-native-vector-icons/MaterialCommunityIcons";
+
+import HomeScreen from "./HomeScreen";
 export default function DashboardScreen({ navigation }) {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.users);
-  console.log(user, isAuthenticated);
+  const Tab = createMaterialBottomTabNavigator();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -17,23 +20,21 @@ export default function DashboardScreen({ navigation }) {
   });
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#000",
-      }}
+    <Tab.Navigator
+      initialRouteName="HomeScreen"
+      barStyle={{ backgroundColor: "red" }}
     >
-      <Text>Dashboard</Text>
-      <Button
-        title="Logout"
-        onPress={() => {
-          firebase.auth().signOut();
-          dispatch(onSignOut());
+      <Tab.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        navigation={navigation}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icons name="home" color={color} size={26} />
+          ),
+          tabBarLabel: "Home",
         }}
       />
-      <FAB small icon="plus" />
-    </View>
+    </Tab.Navigator>
   );
 }

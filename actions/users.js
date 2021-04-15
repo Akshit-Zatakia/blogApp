@@ -23,6 +23,7 @@ const isUserEqual = (googleUser, firebaseUser) => {
 // If the user is already logged in then get the data of user and store it in reducer
 export const loadUser = (user) => (dispatch) => {
   const obj = {
+    uid: user.uid,
     gmail: user.email,
     profile_picture: user.photoURL,
     display_name: user.displayName,
@@ -53,6 +54,7 @@ export const onSignIn = (googleUser) => async (dispatch) => {
         .then((result) => {
           console.log("ff", result);
           const obj = {
+            uid: result.user.uid,
             gmail: result.user.email,
             profile_picture: result.additionalUserInfo.profile.picture,
             display_name: result.additionalUserInfo.profile.name,
