@@ -1,15 +1,16 @@
 import firebase from "firebase";
-import { USER_LOADED } from "../constants/actionTypes";
+import * as Google from "expo-google-app-auth";
+import { USER_LOADED, USER_SIGN_OUT } from "../constants/actionTypes";
 require("firebase/firestore");
 
-isUserEqual = (googleUser, firebaseUser) => {
+const isUserEqual = (googleUser, firebaseUser) => {
   if (firebaseUser) {
     var providerData = firebaseUser.providerData;
     for (var i = 0; i < providerData.length; i++) {
       if (
         providerData[i].providerId ===
           firebase.auth.GoogleAuthProvider.PROVIDER_ID &&
-        providerData[i].uid === googleUser.getBasicProfile().getId()
+        providerData[i].uid === googleUser.user.id
       ) {
         // We don't need to reauth the Firebase connection.
         return true;
@@ -19,13 +20,26 @@ isUserEqual = (googleUser, firebaseUser) => {
   return false;
 };
 
+// If the user is already logged in then get the data of user and store it in reducer
+export const loadUser = (user) => (dispatch) => {
+  const obj = {
+    gmail: user.email,
+    profile_picture: user.photoURL,
+    display_name: user.displayName,
+  };
+  dispatch({
+    type: USER_LOADED,
+    payload: obj,
+  });
+};
+
 export const onSignIn = (googleUser) => async (dispatch) => {
   // console.log("Google Auth Response", googleUser);
   // We need to register an Observer on Firebase Auth to make sure auth is initialized.
   var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
     unsubscribe();
     // Check if we are already signed-in Firebase with the correct user.
-    if (!this.isUserEqual(googleUser, firebaseUser)) {
+    if (!isUserEqual(googleUser, firebaseUser)) {
       // Build Firebase credential with the Google ID token.
       var credential = firebase.auth.GoogleAuthProvider.credential(
         googleUser.idToken,
@@ -37,12 +51,12 @@ export const onSignIn = (googleUser) => async (dispatch) => {
         .auth()
         .signInWithCredential(credential)
         .then((result) => {
+          console.log("ff", result);
           const obj = {
             gmail: result.user.email,
             profile_picture: result.additionalUserInfo.profile.picture,
-            first_name: result.additionalUserInfo.profile.given_name,
-            last_name: result.additionalUserInfo.profile.family_name,
-            createdAt: Date.now(),
+            display_name: result.additionalUserInfo.profile.name,
+            createdAt: Date.now().toString(),
           };
           if (result.additionalUserInfo.isNewUser) {
             firebase
@@ -64,7 +78,7 @@ export const onSignIn = (googleUser) => async (dispatch) => {
               .collection("users")
               .doc(result.user.uid)
               .update({
-                lastLoggedIn: Date.now(),
+                lastLoggedIn: Date.now().toString(),
               })
               .then(() => {
                 dispatch({
@@ -85,7 +99,12 @@ export const onSignIn = (googleUser) => async (dispatch) => {
           // ...
         });
     } else {
-      console.log("User already signed-in Firebase.");
     }
+  });
+};
+
+export const onSignOut = () => (dispatch) => {
+  return dispatch({
+    type: USER_SIGN_OUT,
   });
 };

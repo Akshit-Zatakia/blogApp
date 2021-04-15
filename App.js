@@ -10,10 +10,11 @@ import firebase from "firebase";
 import { Provider } from "react-redux";
 import store from "./store";
 
+// Checking that firebase app is already initialized or not
 if (!firebase.apps.length) {
-  firebase.initializeApp({});
+  firebase.initializeApp(firebaseConfig);
 } else {
-  firebase.app(); // if already initialized, use that one
+  firebase.app();
 }
 
 export default function App() {

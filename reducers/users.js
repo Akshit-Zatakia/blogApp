@@ -1,7 +1,8 @@
-import { USER_LOADED } from "../constants/actionTypes";
+import { USER_LOADED, USER_SIGN_OUT } from "../constants/actionTypes";
 
 const initialState = {
   user: null,
+  isAuthenticated: false,
 };
 
 export default function (state = initialState, action) {
@@ -12,6 +13,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         user: payload,
+        isAuthenticated: true,
+      };
+    case USER_SIGN_OUT:
+      return {
+        user: null,
+        isAuthenticated: false,
       };
     default:
       return state;
