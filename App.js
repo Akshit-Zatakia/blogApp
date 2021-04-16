@@ -11,6 +11,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { NavigationContainer } from "@react-navigation/native";
 import AddPostScreen from "./screens/AddPostScreen";
+import ShowContentScreen from "./screens/ShowContentScreen";
 
 // Checking that firebase app is already initialized or not
 if (!firebase.apps.length) {
@@ -45,6 +46,10 @@ export default function App() {
             name="AddPostScreen"
             component={AddPostScreen}
             options={{ title: "Add Post" }}
+          />
+          <Stack.Screen
+            name="ShowContentScreen"
+            component={ShowContentScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>

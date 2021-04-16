@@ -1,8 +1,9 @@
-import { POST_ADDED } from "../constants/actionTypes";
+import { POSTS_LOADED, POST_ADDED } from "../constants/actionTypes";
 
 const initialState = {
   posts: [],
   isAdding: true,
+  isLoading: true,
 };
 
 export default function (state = initialState, action) {
@@ -13,6 +14,13 @@ export default function (state = initialState, action) {
         ...state,
         isAdding: false,
       };
+    case POSTS_LOADED:
+      return {
+        ...state,
+        posts: payload,
+        isLoading: false,
+      };
+      return;
     default:
       return state;
   }

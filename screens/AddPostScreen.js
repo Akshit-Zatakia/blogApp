@@ -40,10 +40,6 @@ export default function AddPostScreen({ navigation }) {
   // Set the selected image in this state
   const [image, setImage] = useState(null);
 
-  // Create the dialog component to show the loading status and message
-  const customDialog = () => {
-    return <View></View>;
-  };
   // Get the request for image
   useEffect(() => {
     (async () => {
