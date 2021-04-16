@@ -165,7 +165,7 @@ export default function AddPostScreen({ navigation }) {
           selectionColor="red"
           mode="outlined"
           multiline={true}
-          numberOfLines={4}
+          numberOfLines={10}
           placeholder="Enter the description"
           label="Description"
           style={styles.textInputStyle}
