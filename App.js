@@ -45,7 +45,7 @@ export default function App() {
           <Stack.Screen
             name="AddPostScreen"
             component={AddPostScreen}
-            options={{ title: "Add Post" }}
+            options={{ title: "Add Blog" }}
           />
           <Stack.Screen
             name="ShowContentScreen"

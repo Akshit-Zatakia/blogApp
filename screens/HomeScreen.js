@@ -75,10 +75,13 @@ export default function HomeScreen({ navigation }) {
               navigation.navigate("ShowContentScreen", { item });
             }}
           >
-            <Card.Cover source={{ uri: item.downloadUrl }} />
+            <Card.Cover
+              source={{ uri: item.downloadUrl }}
+              loadingIndicatorSource
+            />
             <Card.Content>
               <Title>{item.title}</Title>
-              <Paragraph>{item.desc}</Paragraph>
+              <Paragraph numberOfLines={1}>{item.desc}</Paragraph>
             </Card.Content>
           </Card>
         )}

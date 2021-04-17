@@ -1,7 +1,12 @@
-import { POSTS_LOADED, POST_ADDED } from "../constants/actionTypes";
+import {
+  POSTS_LOADED,
+  POST_ADDED,
+  USER_POST_LOADED,
+} from "../constants/actionTypes";
 
 const initialState = {
   posts: [],
+  post: [],
   isAdding: true,
   isLoading: true,
 };
@@ -20,7 +25,11 @@ export default function (state = initialState, action) {
         posts: payload,
         isLoading: false,
       };
-      return;
+    case USER_POST_LOADED:
+      return {
+        ...state,
+        post: payload,
+      };
     default:
       return state;
   }

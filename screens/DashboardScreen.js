@@ -8,6 +8,7 @@ import { createMaterialBottomTabNavigator } from "@react-navigation/material-bot
 import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import HomeScreen from "./HomeScreen";
+import ProfileScreen from "./ProfileScreen";
 export default function DashboardScreen({ navigation }) {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.users);
@@ -22,7 +23,7 @@ export default function DashboardScreen({ navigation }) {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      barStyle={{ backgroundColor: "red" }}
+      // barStyle={{ backgroundColor: "red" }}
     >
       <Tab.Screen
         name="HomeScreen"
@@ -33,6 +34,17 @@ export default function DashboardScreen({ navigation }) {
             <Icons name="home" color={color} size={26} />
           ),
           tabBarLabel: "Home",
+        }}
+      />
+      <Tab.Screen
+        name="ProfileScreen"
+        component={ProfileScreen}
+        navigation={navigation}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icons name="account" color={color} size={26} />
+          ),
+          tabBarLabel: "Profile",
         }}
       />
     </Tab.Navigator>

@@ -4,7 +4,7 @@ import { ActivityIndicator, Text, View } from "react-native";
 import firebase from "firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUser, loadUser } from "../actions/users";
-import { getPosts } from "../actions/post";
+import { getPosts, getUserPosts } from "../actions/post";
 
 export default function LoadingScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ export default function LoadingScreen({ navigation }) {
       if (user) {
         dispatch(loadUser(user));
         dispatch(getPosts());
+        dispatch(getUserPosts());
         navigation.navigate("DashboardScreen");
       } else {
         navigation.navigate("LoginScreen");
