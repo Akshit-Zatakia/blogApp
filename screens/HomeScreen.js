@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { FlatList, RefreshControl, StatusBar, Text, View } from "react-native";
 import {
   Button,
-  FlatList,
-  RefreshControl,
-  StatusBar,
-  Text,
-  View,
-} from "react-native";
-import {
   Appbar,
   Card,
   FAB,
   Paragraph,
   Searchbar,
   Title,
+  IconButton,
 } from "react-native-paper";
 import { SafeAreaView } from "react-navigation";
 
 import firebase from "firebase";
 import { onSignOut } from "../actions/users";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../actions/post";
+import { getPosts, likePost } from "../actions/post";
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -83,6 +78,12 @@ export default function HomeScreen({ navigation }) {
               <Title>{item.title}</Title>
               <Paragraph numberOfLines={1}>{item.desc}</Paragraph>
             </Card.Content>
+            <Card.Actions>
+              <IconButton
+                icon="heart-outline"
+                onPress={() => dispatch(likePost(item.uid))}
+              />
+            </Card.Actions>
           </Card>
         )}
         style={{

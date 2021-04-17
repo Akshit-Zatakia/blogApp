@@ -73,3 +73,16 @@ export const getUserPosts = () => async (dispatch, getState) => {
       console.log(error);
     });
 };
+
+export const likePost = (postUid) => async (dispatch, getState) => {
+  firebase
+    .firestore()
+    .collection("likes")
+    .doc(postUid)
+    .collection("users")
+    .doc(getState().users.user.uid)
+    .set({})
+    .then(() => {
+      console.log("Liked");
+    });
+};

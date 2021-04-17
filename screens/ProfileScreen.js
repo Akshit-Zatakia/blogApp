@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -19,11 +20,22 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import firebase from "firebase";
 import { onSignOut } from "../actions/users";
+import { getUserPosts } from "../actions/post";
 
 function ProfileScreen({ navigation }) {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.users);
   const { post } = useSelector((state) => state.post);
+
+  // State for checking if data is loading or not.
+  const [refreshing, setRefreshing] = useState(false);
+
+  // Method for performing reloading of data
+  const refreshData = () => {
+    setRefreshing(true);
+    dispatch(getUserPosts());
+    setRefreshing(false);
+  };
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -76,6 +88,9 @@ function ProfileScreen({ navigation }) {
             numColumns={2}
             horizontal={false}
             data={post}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={refreshData} />
+            }
             renderItem={({ item }) => (
               <Card
                 style={{
