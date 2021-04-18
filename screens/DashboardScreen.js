@@ -9,6 +9,7 @@ import Icons from "react-native-vector-icons/MaterialCommunityIcons";
 
 import HomeScreen from "./HomeScreen";
 import ProfileScreen from "./ProfileScreen";
+import LikedPostScreen from "./LikedPostScreen";
 export default function DashboardScreen({ navigation }) {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.users);
@@ -45,6 +46,17 @@ export default function DashboardScreen({ navigation }) {
             <Icons name="account" color={color} size={26} />
           ),
           tabBarLabel: "Profile",
+        }}
+      />
+      <Tab.Screen
+        name="LikedPostScreen"
+        component={LikedPostScreen}
+        navigation={navigation}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Icons name="heart" color={color} size={26} />
+          ),
+          tabBarLabel: "Liked",
         }}
       />
     </Tab.Navigator>

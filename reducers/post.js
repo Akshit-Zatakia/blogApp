@@ -1,4 +1,5 @@
 import {
+  LIKE_POSTS,
   POSTS_LOADED,
   POST_ADDED,
   USER_POST_LOADED,
@@ -7,6 +8,7 @@ import {
 const initialState = {
   posts: [],
   post: [],
+  like: [],
   isAdding: true,
   isLoading: true,
 };
@@ -29,6 +31,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         post: payload,
+      };
+    case LIKE_POSTS:
+      return {
+        ...state,
+        like: payload,
       };
     default:
       return state;

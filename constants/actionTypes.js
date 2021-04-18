@@ -6,3 +6,4 @@ export const USER_SIGN_OUT = "USER_SIGN_OUT";
 export const POST_ADDED = "POST_ADDED";
 export const POSTS_LOADED = "POSTS_LOADED";
 export const USER_POST_LOADED = "USER_POST_LOADED";
+export const LIKE_POSTS = "LIKE_POSTS";

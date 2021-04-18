@@ -1,6 +1,7 @@
 import firebase from "firebase";
 require("firebase/firestore");
 import {
+  LIKE_POSTS,
   POSTS_LOADED,
   POST_ADDED,
   USER_POST_LOADED,
@@ -78,11 +79,48 @@ export const likePost = (postUid) => async (dispatch, getState) => {
   firebase
     .firestore()
     .collection("likes")
-    .doc(postUid)
-    .collection("users")
     .doc(getState().users.user.uid)
-    .set({})
+    .collection("likedPosts")
+    .doc(postUid)
+    .set({
+      flag: true,
+    })
     .then(() => {
-      console.log("Liked");
+      dispatch(getLikedPostUid());
+    });
+};
+
+export const unlikePost = (postUid) => async (dispatch, getState) => {
+  firebase
+    .firestore()
+    .collection("likes")
+    .doc(getState().users.user.uid)
+    .collection("likedPosts")
+    .doc(postUid)
+    .delete()
+    .then(() => {
+      dispatch(getLikedPostUid());
+    });
+};
+
+export const getLikedPostUid = () => async (dispatch, getState) => {
+  firebase
+    .firestore()
+    .collection("likes")
+    .doc(getState().users.user.uid)
+    .collection("likedPosts")
+    .get()
+    .then((snapshot) => {
+      const data = snapshot.docs.map((doc) => {
+        return doc.id;
+      });
+
+      dispatch({
+        type: LIKE_POSTS,
+        payload: data,
+      });
+    })
+    .catch((error) => {
+      console.log("likeerror", error);
     });
 };

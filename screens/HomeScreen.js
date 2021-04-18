@@ -15,7 +15,12 @@ import { SafeAreaView } from "react-navigation";
 import firebase from "firebase";
 import { onSignOut } from "../actions/users";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts, likePost } from "../actions/post";
+import {
+  getLikedPostUid,
+  getPosts,
+  likePost,
+  unlikePost,
+} from "../actions/post";
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
@@ -26,12 +31,15 @@ export default function HomeScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   // Get all the posts from state.
   const { posts } = useSelector((state) => state.post);
+  // Get all the liked posts id
+  const { like } = useSelector((state) => state.post);
 
   // Method for performing reloading of data
   const refreshData = () => {
     setRefreshing(true);
     dispatch(getPosts());
-    console.log("refe", posts);
+    dispatch(getLikedPostUid());
+
     setRefreshing(false);
   };
 
@@ -79,10 +87,19 @@ export default function HomeScreen({ navigation }) {
               <Paragraph numberOfLines={1}>{item.desc}</Paragraph>
             </Card.Content>
             <Card.Actions>
-              <IconButton
-                icon="heart-outline"
-                onPress={() => dispatch(likePost(item.uid))}
-              />
+              {like.includes(item.id) ? (
+                <IconButton
+                  icon="heart"
+                  onPress={() => {
+                    dispatch(unlikePost(item.id));
+                  }}
+                />
+              ) : (
+                <IconButton
+                  icon="heart-outline"
+                  onPress={() => dispatch(likePost(item.id))}
+                />
+              )}
             </Card.Actions>
           </Card>
         )}
