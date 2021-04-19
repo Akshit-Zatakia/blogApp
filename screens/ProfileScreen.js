@@ -71,7 +71,7 @@ function ProfileScreen({ navigation }) {
         <Button
           style={{
             marginHorizontal: 20,
-            backgroundColor: "blue",
+            backgroundColor: "#00A3A3",
             marginBottom: 10,
           }}
           mode="contained"

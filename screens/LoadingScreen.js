@@ -31,7 +31,7 @@ export default function LoadingScreen({ navigation }) {
         justifyContent: "center",
       }}
     >
-      <ActivityIndicator size="large" color="red" />
+      <ActivityIndicator size="large" color="#00A3A3" />
     </View>
   );
 }

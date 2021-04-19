@@ -88,6 +88,7 @@ function LikedPostScreen({ navigation }) {
                   {like.includes(item.id) ? (
                     <IconButton
                       icon="heart"
+                      color="red"
                       onPress={() => {
                         dispatch(unlikePost(item.id));
                       }}
@@ -95,6 +96,7 @@ function LikedPostScreen({ navigation }) {
                   ) : (
                     <IconButton
                       icon="heart-outline"
+                      color="red"
                       onPress={() => dispatch(likePost(item.id))}
                     />
                   )}

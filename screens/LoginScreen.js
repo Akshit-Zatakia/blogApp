@@ -53,16 +53,15 @@ export default function LoginScreen({ navigation }) {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#000",
       }}
     >
       <Text
         style={{
-          color: "#fff",
           fontFamily: "sans-serif-medium",
           margin: 10,
           marginBottom: 20,
           fontSize: 24,
+          color: "#000",
         }}
       >
         Welcome to Bloggie
@@ -73,10 +72,10 @@ export default function LoginScreen({ navigation }) {
         render signin button
       */}
       {loading ? (
-        <ActivityIndicator color="red" size="large" />
+        <ActivityIndicator color="#00A3A3" size="large" />
       ) : (
         <Button
-          color="red"
+          color="#00A3A3"
           onPress={() => {
             setLoading(true);
             signInWithGoogleAsync();

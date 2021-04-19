@@ -24,7 +24,8 @@ export default function DashboardScreen({ navigation }) {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      // barStyle={{ backgroundColor: "red" }}
+      barStyle={{ backgroundColor: "white" }}
+      activeColor="#00A3A3"
     >
       <Tab.Screen
         name="HomeScreen"
@@ -34,6 +35,7 @@ export default function DashboardScreen({ navigation }) {
           tabBarIcon: ({ color, size }) => (
             <Icons name="home" color={color} size={26} />
           ),
+
           tabBarLabel: "Home",
         }}
       />

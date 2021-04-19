@@ -50,6 +50,7 @@ export default function App() {
           <Stack.Screen
             name="ShowContentScreen"
             component={ShowContentScreen}
+            options={{ title: "Content" }}
           />
         </Stack.Navigator>
       </NavigationContainer>

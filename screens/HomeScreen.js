@@ -55,6 +55,7 @@ export default function HomeScreen({ navigation }) {
         style={{
           margin: 18,
         }}
+        iconColor="#00A3A3"
         value={search}
         onChangeText={(e) => setSearch(e)}
       />
@@ -90,6 +91,7 @@ export default function HomeScreen({ navigation }) {
               {like.includes(item.id) ? (
                 <IconButton
                   icon="heart"
+                  color="red"
                   onPress={() => {
                     dispatch(unlikePost(item.id));
                   }}
@@ -97,6 +99,7 @@ export default function HomeScreen({ navigation }) {
               ) : (
                 <IconButton
                   icon="heart-outline"
+                  color="red"
                   onPress={() => dispatch(likePost(item.id))}
                 />
               )}
@@ -112,7 +115,7 @@ export default function HomeScreen({ navigation }) {
         color="white"
         icon="plus"
         style={{
-          backgroundColor: "red",
+          backgroundColor: "#00A3A3",
           position: "absolute",
           right: 10,
           bottom: 10,

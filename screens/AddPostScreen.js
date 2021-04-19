@@ -142,6 +142,7 @@ export default function AddPostScreen({ navigation }) {
           ) : (
             <Button
               icon="camera"
+              color="#00A3A3"
               style={styles.imageContainerButton}
               onPress={(e) => pickImage()}
             >
@@ -152,13 +153,14 @@ export default function AddPostScreen({ navigation }) {
 
         <TextInput
           value={title}
-          selectionColor="red"
+          selectionColor="#00A3A3"
           mode="outlined"
           placeholder="Enter the title"
           label="Title"
           style={styles.textInputStyle}
           onChangeText={(title) => setTitle(title)}
           disabled={visible}
+          theme={{ colors: { primary: "#00A3A3", underlineColor: "#00A3A3" } }}
         />
         <TextInput
           value={description}
@@ -171,6 +173,7 @@ export default function AddPostScreen({ navigation }) {
           style={styles.textInputStyle}
           onChangeText={(desc) => setDescription(desc)}
           disabled={visible}
+          theme={{ colors: { primary: "#00A3A3", underlineColor: "#00A3A3" } }}
         />
 
         <Button
@@ -208,8 +211,10 @@ const styles = StyleSheet.create({
     margin: 5,
     textAlign: "justify",
     backgroundColor: "#fff",
+    color: "#00A3A3",
   },
   buttonStyle: {
+    backgroundColor: "#00A3A3",
     margin: 5,
   },
 });
